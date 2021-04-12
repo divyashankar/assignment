@@ -1,0 +1,29 @@
+{
+  "customers": [
+    {
+      "customerId": "01",
+      "customerName": "Jawahar",
+      "customerLocation": "India"
+    },
+    {
+      "customerId": "02",
+      "customerName": "Subash",
+      "customerLocation": "India"
+    },
+    {
+      "customerId": "03",
+      "customerName": "Bhagat",
+      "customerLocation": "India"
+    },
+    {
+      "customerId": "04",
+      "customerName": "Tilak",
+      "customerLocation": "India"
+    },
+    {
+      "customerId": "05",
+      "customerName": "Shastri",
+      "customerLocation": "India"
+    }
+  ]
+}
