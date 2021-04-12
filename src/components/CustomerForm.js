@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
-const CustomerForm = ({onAdd,onEdit}) =>{
-        const [customerId,setCustomerId] = useState('')
-        const [customerName,setCustomerName] = useState('')
-        const [customerLocation,setCustomerLocation] = useState('')
+const CustomerForm = (props) =>{
+        const [id,setId] = useState('')
+        const [name,setName] = useState('')
+        const [location,setLocation] = useState('')
+
+        useEffect(()=>{
+            if(props.inEditState){
+                setName(props.custById.name)
+                setLocation(props.custById.location)
+            }
+        },[props.inEditState])
 
 const onSubmit = (cust) =>{
     cust.preventDefault()
-    if(!customerName || !customerLocation || !customerId){
+    if(!name || !location || !id){
         alert ('Fill all the details please!')
         return
     }
-    onAdd({customerId,customerName,customerLocation})
-    setCustomerName('')
-    setCustomerLocation('')
+    const isEdit = (props.inEditState) ? true : false ; 
+    const customer = (props.inEditState) ? {customerId : props.custById.id,customerName:name,customerLocation : location} : {customerName:name,customerLocation : location};
+    props.addCustomer(customer,isEdit);
+    setName('')
+    setLocation('')
 }
     return (
         <div>
@@ -25,8 +34,8 @@ const onSubmit = (cust) =>{
                         name='CustomerId'
                         placeholder='Enter your Customer ID *'
                         className="form-control input"
-                        value={customerId}
-                        onChange={(cust) => setCustomerId(cust.target.value)}
+                        value={id}
+                        onChange={(cust) => setId(cust.target.value)}
                     />
                 </div>
                 <div>
@@ -35,8 +44,8 @@ const onSubmit = (cust) =>{
                         name='CustomerName'
                         placeholder='Enter your name *'
                         className="form-control input"
-                        value={customerName}
-                        onChange={(cust) => setCustomerName(cust.target.value)}
+                        value={name}
+                        onChange={(cust) => setName(cust.target.value)}
                     />
                 </div>
                 <div>
@@ -45,11 +54,11 @@ const onSubmit = (cust) =>{
                         name='CustomerLocation '
                         placeholder='Enter your location *'
                         className="form-control input"s
-                        value={customerLocation}
-                        onChange={(cust) => setCustomerLocation(cust.target.value)}
+                        value={location}
+                        onChange={(cust) => setLocation(cust.target.value)}
                     />
                 </div>
-                    <button class='btn btn-success' style={{backgroundColor:"green"}}>Submit</button>
+                    <button class={(props.inEditState) ? 'btn btn-success' : 'btn btn-primary'}>{(props.inEditState) ? "Edit" : " Add "}</button>
             </form>
         </div>
     )
